@@ -20,6 +20,7 @@
 \usepackage{amsfonts}       % blackboard math symbols
 \usepackage{nicefrac}       % compact symbols for 1/2, etc.
 \usepackage{microtype}      % microtypography
+\usepackage{amsmath}
 
 \title{Voxel-wise nonlinear analysis toolbox for neurodegenerative diseases and aging}
 
@@ -95,11 +96,20 @@ A Generalized Additive Model is a Generalized Linear Model in which the observat
 
 The regression counterpart of the well-known Support Vector Machines, Support Vector Regression, is based on the following idea: the goal is to find a function that has at most $\epsilon$ deviation from the observations and, at the same time, is as flat as possible. However, the $\epsilon$ deviation contraint is not feasible sometimes, and a hyperparameter that controls the degree up to which deviations larger than $\epsilon$ are tolerated is introduced, $C$. The linear function for SVR is $ f(x) = \langle w , x \rangle + b $, and then the optimization problem is formulated as follows:
 \begin{equation}
-	EQ = NICE
+	\text{minimize}\ \frac{1}{2}\|w\|^2 + C \sum_{i=1}^{n} (\zeta_i + \zeta^*_i)\ \text{subject to}\ \begin{cases}
+	y_i - \langle w,x_i \rangle - b \leq \epsilon + \zeta_i \\
+	\langle w,x_i \rangle + b - y_i \leq \epsilon + \zeta^*_i \\
+	\zeta_i, \zeta^*_i \geq 0
+	\end{cases}
 \end{equation}
+whose solution is $ f(x) = \sum_{i=1}^{n} (\alpha_i - \alpha^*_i)\langle x_i , x \rangle + b $, where $ (\alpha_i - \alpha^*_i) $ are the coefficients of the dual problem that are found in the optimization process.
 
+In context of SVR the nonlinearities are introduced with the "kernel trick", that is, a kernel function $ k(x_i, x_j) = \langle \Phi(x_i), \Phi(x_j) \rangle $ is introduced that implicitly maps the inputs from their original space into another high-dimensional space without requiring to know the explicit mapping $ \Phi(\cdot) $. The solution using this kernel function is then $ f(x) = \sum_{i=1}^{n} (\alpha_i - \alpha^*_i)k(x_i, x) + b$. 
 
+The kernel function used in this toolbox is the Radial Basis Function or Gaussian kernel, which is defined as $ k(x_i, x_j) = exp(-\gamma \|x_i - x_j\|^2)$.
 \end{itemize}
+
+\subsection{Hyperparameters search algorithm}
 
 \subsection{Fit evaluation methods}
 
@@ -109,8 +119,6 @@ The regression counterpart of the well-known Support Vector Machines, Support Ve
 \item \textbf{PRSS\footnote{Penalized Residual Sum of Squares}, Variance-Normalized PRSS} 
 
 \end{itemize}
-
-\subsection{Hyperparameters search algorithm}
 
 \subsubsection{Error functions}
 \begin{enumerate}
