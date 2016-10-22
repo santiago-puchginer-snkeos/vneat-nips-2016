@@ -103,12 +103,10 @@ The kernel function used in this toolbox is the Radial Basis Function or Gaussia
 
 \subsection{Hyperparameters search algorithm}
 
-\subsubsection{Error functions}
-\begin{enumerate}
-	\item MSE
-	\item Cp statistic
-	\item ANOVA-based error
-\end{enumerate}
+Support Vector Regression methods rely on several hyperparameters, namely $\epsilon$ and $C$ in general and also $\gamma$ when using a RBF kernel function. To address the search of these hyperparameters an automatic method based on grid search is included in this toolbox, which comprises the following steps: 1) sample the hyperparameters space in a grid using one of the several sampling methods provided in the toolbox; 2) fit a subset of the data with the combination of hyperparameters of each sample in the grid; 3) select the combination that minimizes the error function of choice. 
+
+The lack of validation data and the nature of morphometric data, which is vastly dominated by voxels with 0-valued observations, limits the ability to find a subset of the data that is valid to find the optimal hyperparameters without incurrying in overfitting or underfitting. For that reason the following approach is taken: a subset of $m$ voxels is selected in each of the $N$ iterations of the algorithm, the $m$ selected voxels must contain observations with a minimum variance of $Var_{min}$, and the error computed for each voxel is weighted by the inverse of the variance of its observations. 
+
 
 \subsection{Fit evaluation methods}
 \begin{itemize}
@@ -135,6 +133,8 @@ For that reason a variance normalized version of the PRSS that takes into accoun
 \end{itemize}
 
 \subsection{Interactive visualization tools}
+
+An interactive visualization tool is included in the toolbox to provide added insight on the results: it allows to load a 3D statistical map — generated with the fit evaluation method of choice — and several fitted models, and then plots the predicted curves of all the models for the voxel selected with the cursor, hence easing the task of inspecting the curves in the uncovered significant regions. An example of the aforementioned tool is found in \autoref{}. 
 
 \section{Implementation details}
 
