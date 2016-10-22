@@ -2,8 +2,8 @@
 \BOOKMARK [1][-]{section.2}{The toolbox}{}% 2
 \BOOKMARK [2][-]{subsection.2.1}{Model fitting techniques}{section.2}% 3
 \BOOKMARK [2][-]{subsection.2.2}{Hyperparameters search algorithm}{section.2}% 4
-\BOOKMARK [2][-]{subsection.2.3}{Fit evaluation methods}{section.2}% 5
-\BOOKMARK [3][-]{subsubsection.2.3.1}{Error functions}{subsection.2.3}% 6
+\BOOKMARK [3][-]{subsubsection.2.2.1}{Error functions}{subsection.2.2}% 5
+\BOOKMARK [2][-]{subsection.2.3}{Fit evaluation methods}{section.2}% 6
 \BOOKMARK [2][-]{subsection.2.4}{Interactive visualization tools}{section.2}% 7
 \BOOKMARK [1][-]{section.3}{Implementation details}{}% 8
 \BOOKMARK [1][-]{section.4}{Experiments}{}% 9

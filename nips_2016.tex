@@ -94,42 +94,51 @@ A Generalized Additive Model is a Generalized Linear Model in which the observat
 
 \item \textbf{Support Vector Regression (SVR)} 
 
-The regression counterpart of the well-known Support Vector Machines, Support Vector Regression, is based on the following idea: the goal is to find a function that has at most $\epsilon$ deviation from the observations and, at the same time, is as flat as possible. However, the $\epsilon$ deviation contraint is not feasible sometimes, and a hyperparameter that controls the degree up to which deviations larger than $\epsilon$ are tolerated is introduced, $C$. The linear function for SVR is $ f(x) = \langle w , x \rangle + b $, and then the optimization problem is formulated as follows:
-\begin{equation}
-	\text{minimize}\ \frac{1}{2}\|w\|^2 + C \sum_{i=1}^{n} (\zeta_i + \zeta^*_i)\ \text{subject to}\ \begin{cases}
-	y_i - \langle w,x_i \rangle - b \leq \epsilon + \zeta_i \\
-	\langle w,x_i \rangle + b - y_i \leq \epsilon + \zeta^*_i \\
-	\zeta_i, \zeta^*_i \geq 0
-	\end{cases}
-\end{equation}
-whose solution is $ f(x) = \sum_{i=1}^{n} (\alpha_i - \alpha^*_i)\langle x_i , x \rangle + b $, where $ (\alpha_i - \alpha^*_i) $ are the coefficients of the dual problem that are found in the optimization process.
+The regression counterpart of the well-known Support Vector Machines, Support Vector Regression, is based on the following idea: the goal is to find a function that has at most $\epsilon$ deviation from the observations and, at the same time, is as flat as possible. However, the $\epsilon$ deviation contraint is not feasible sometimes, and a hyperparameter that controls the degree up to which deviations larger than $\epsilon$ are tolerated is introduced, $C$. The linear function for SVR is $ f(x) = \langle w , x \rangle + b $, and then the solution for the optimization problem is $ f(x) = \sum_{i=1}^{n} (\alpha_i - \alpha^*_i)\langle x_i , x \rangle + b $, where $ (\alpha_i - \alpha^*_i) $ are the coefficients found in the dual optimization problem.
 
-In context of SVR the nonlinearities are introduced with the "kernel trick", that is, a kernel function $ k(x_i, x_j) = \langle \Phi(x_i), \Phi(x_j) \rangle $ is introduced that implicitly maps the inputs from their original space into another high-dimensional space without requiring to know the explicit mapping $ \Phi(\cdot) $. The solution using this kernel function is then $ f(x) = \sum_{i=1}^{n} (\alpha_i - \alpha^*_i)k(x_i, x) + b$. 
+In context of SVR the nonlinearities are introduced with the "kernel trick", that is, a kernel function $ k(x_i, x_j) = \langle \Phi(x_i), \Phi(x_j) \rangle $ is introduced that implicitly maps the inputs from their original space into another high-dimensional space without requiring to know the explicit mapping $ \Phi(\cdot) $. The solution using the kernel function is then $ f(x) = \sum_{i=1}^{n} (\alpha_i - \alpha^*_i)k(x_i, x) + b$. 
 
 The kernel function used in this toolbox is the Radial Basis Function or Gaussian kernel, which is defined as $ k(x_i, x_j) = exp(-\gamma \|x_i - x_j\|^2)$.
 \end{itemize}
 
 \subsection{Hyperparameters search algorithm}
 
-\subsection{Fit evaluation methods}
+\subsubsection{Error functions}
+\begin{enumerate}
+	\item MSE
+	\item Cp statistic
+	\item ANOVA-based error
+\end{enumerate}
 
+\subsection{Fit evaluation methods}
 \begin{itemize}
 \item \textbf{F-test} 
 
+The F-test can be used in regression problems to determine whether a particular part of a model is significantly improving the overall performance of the rest of the model.
+The F-test compares the variance of the error of the restricted model $M_{restricted}$, which consists only in the correctors, with the variance of the error of the full model $M_{full}$, which consists both in the correctors and the predictors, and evaluates whether the variance of the full model is significantly lower — from a statistical point of view — than the variance of the restricted model, that is, the inclusion of the predictors contributes to the explanation of the observations.
+
+The F-statistic is defined as:
+\begin{equation}
+F = \frac{(\frac{RSS_{restricted} - RSS_{full}}{df_{restricted} - df_{full}})}{(\frac{RSS_{full}}{df_{full}})}
+\end{equation}
+
+Under the null hypothesis F will follow a F-distribution of parameters $(df_{restricted} - df_{full}, df_{full})$.
+
+One can notice that this statistical test requires then the degrees of freedom of both models, which are trivial to compute in GLM, but they aren't in GAM or SVR. The equivalent degrees of freedom for Support Vector Regression were introduced in the toolbox as defined in \ref{}.
+
 \item \textbf{PRSS\footnote{Penalized Residual Sum of Squares}, Variance-Normalized PRSS} 
 
-\end{itemize}
+Penalized Residuals Sum of Squares is introduced in the toolbox in order to provide a fit evaluation metric that penalizes the complexity of the predicted curve without requiring the degrees of freedom. However, PRSS is not suitable enough in the context of morphometric analysis, as it always provides better scores for target variables with low-variance and flat trends than for target variables with high-variance and nonflat trends, and that poses a problem as most of the voxels in the brain are 0-valued. 
 
-\subsubsection{Error functions}
-\begin{enumerate}
-\item MSE
-\item Cp statistic
-\item ANOVA-based error
-\end{enumerate}
+For that reason a variance normalized version of the PRSS that takes into account this domain specific requirement and weights the score with the inverse of the variance of the predicted curve was introduced, the Variance Normalized Penalized Residuals Sum of Squares, which is formulated as $\frac{1}{\frac{1}{n-1} \sum_{i=1}^{n} (\hat{y}_i - \frac{1}{n} \sum_{i=1}^{n} \hat{y}_i)^2} (\sum_{i=1}^{n} (y_i - \hat{y}_i)^2 + \lambda \int{}^{} [f^{''}(x)]^2 dx)$.
+
+\end{itemize}
 
 \subsection{Interactive visualization tools}
 
 \section{Implementation details}
+
+The whole toolbox has been implemented in Python. Numpy and scipy have been used for the numerical and scientific computing, NiBabel for handling the morphometric data in NIfTI format, scikit-learn for the machine learning algorithms and matplotlib and seaborn for plotting and for the visualization features.
 
 \section{Experiments}
 
