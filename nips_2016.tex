@@ -1,0 +1,143 @@
+\documentclass{article}
+
+% if you need to pass options to natbib, use, e.g.:
+% \PassOptionsToPackage{numbers, compress}{natbib}
+% before loading nips_2016
+%
+% to avoid loading the natbib package, add option nonatbib:
+% \usepackage[nonatbib]{nips_2016}
+
+\usepackage[final]{nips_2016}
+
+% to compile a camera-ready version, add the [final] option, e.g.:
+% \usepackage[final]{nips_2016}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+
+\title{Voxel-wise nonlinear analysis toolbox for neurodegenerative diseases and aging}
+
+% The \author macro works with any number of authors. There are two
+% commands used to separate the names and addresses of multiple
+% authors: \And and \AND.
+%
+% Using \And between authors leaves it to LaTeX to determine where to
+% break the lines. Using \AND forces a line break at that point. So,
+% if LaTeX puts 3 of 4 authors names on the first line, and the last
+% on the second line, try using \AND instead of \And before the third
+% author name.
+
+\author{
+  Authors\\
+  Signal Theory and Communications Department\\
+  Universitat Politècnica de Catalunya, BarcelonaTech\\
+  Barcelona, Spain \\
+  \texttt{email}\\
+  %% \AND
+  %% Coauthor \\
+  %% Affiliation \\
+  %% Address \\
+  %% \texttt{email} \\
+  %% \And
+  %% Coauthor \\
+  %% Affiliation \\
+  %% Address \\
+  %% \texttt{email} \\
+  %% \And
+  %% Coauthor \\
+  %% Affiliation \\
+  %% Address \\
+  %% \texttt{email} \\
+}
+
+\begin{document}
+% \nipsfinalcopy is no longer used
+
+\maketitle
+
+\begin{abstract}
+  The abstract paragraph should be indented \nicefrac{1}{2}~inch
+  (3~picas) on both the left- and right-hand margins. Use 10~point
+  type, with a vertical spacing (leading) of 11~points.  The word
+  \textbf{Abstract} must be centered, bold, and in point size 12. Two
+  line spaces precede the abstract. The abstract must be limited to
+  one paragraph.
+\end{abstract}
+
+\section{Introduction}
+
+\section{The toolbox}
+\label{toolbox}
+
+The toolbox comprises an independent \textit{fitting library}, made up of different \textit{model fitting} and \textit{fit evaluation} methods, a \textit{processing} module that interacts with the aforementioned \textit{fitting library} providing the formatted data obtained from the \textit{file system}, several \textit{visualization} tools and a \textit{CLI interface} that allows the interaction between the user and the \textit{processing} module, supported by a \textit{configuration file}. 
+
+\subsection{Model fitting techniques}
+
+A model fitting consists on finding a parametric or a nonparametric function of some explanatory variables (\textbf{predictors}) and possibly some confound variables (\textbf{correctors}) that best fits the observations of the target variable in terms of a given quality metric or, conversely, that minimizes the loss between the prediction of the model and the actual observations.
+\begin{itemize}
+\item \textbf{General Linear Model (GLM)} 
+
+The General Linear model is a generalization of multiple linear regression to the case of more than one dependent variable. As in the case of multiple linear regression, the most common lost function is the Residual Sum of Squares, and the optimization procedure used is Ordinary Least Squares, which yields the well-known normal equation $ X^TX\beta = X^Ty $, and from that we solve for the $\beta$ parameters to obtain the final solution: $ \beta = (X^TX)^{-1}X^Ty $.
+
+A possible approach to model nonliniearities with this model is a polynomial basis expansion of degree $d$, that is, the input space $\mathfrak{X}$ is mapped into another feature space $\mathfrak{F}$ that also includes the polynomial terms of the variables: ($\Phi : \mathfrak{X} \rightarrow \mathfrak{F}$).
+
+\item \textbf{Generalized Additive Model (GAM)} 
+
+A Generalized Additive Model is a Generalized Linear Model in which the observations of the target variable depend linearly on unknown smooth functions of some predictor variables: $ f(X) = \alpha + \sum_{i=1}^{k} f_i(X_i)$. Here $f_1, f_2, ..., f_k$ are nonparametric smooth functions that are simultaneously estimated using scatterplot smoothers by means of the \textbf{backfitting algorithm}. Several fitting methods can be accomodated in this framework by using different smoother operators, such as cubic splines, polynomial or Gaussian smoothers. 
+
+\item \textbf{Support Vector Regression (SVR)} 
+
+The regression counterpart of the well-known Support Vector Machines, Support Vector Regression, is based on the following idea: the goal is to find a function that has at most $\epsilon$ deviation from the observations and, at the same time, is as flat as possible. However, the $\epsilon$ deviation contraint is not feasible sometimes, and a hyperparameter that controls the degree up to which deviations larger than $\epsilon$ are tolerated is introduced, $C$. The linear function for SVR is $ f(x) = \langle w , x \rangle + b $, and then the optimization problem is formulated as follows:
+\begin{equation}
+	EQ = NICE
+\end{equation}
+
+
+\end{itemize}
+
+\subsection{Fit evaluation methods}
+
+\begin{itemize}
+\item \textbf{F-test} 
+
+\item \textbf{PRSS\footnote{Penalized Residual Sum of Squares}, Variance-Normalized PRSS} 
+
+\end{itemize}
+
+\subsection{Hyperparameters search algorithm}
+
+\subsubsection{Error functions}
+\begin{enumerate}
+\item MSE
+\item Cp statistic
+\item ANOVA-based error
+\end{enumerate}
+
+\subsection{Interactive visualization tools}
+
+\section{Implementation details}
+
+\section{Experiments}
+
+\subsection{Dataset}
+
+\section{Conclusions}
+
+\subsubsection*{Acknowledgments}
+
+
+\section*{References}
+\small
+
+[1] Alexander, J.A.\ \& Mozer, M.C.\ (1995) Template-based algorithms
+for connectionist rule extraction. In G.\ Tesauro, D.S.\ Touretzky and
+T.K.\ Leen (eds.), {\it Advances in Neural Information Processing
+  Systems 7}, pp.\ 609--616. Cambridge, MA: MIT Press.
+
+\end{document}
