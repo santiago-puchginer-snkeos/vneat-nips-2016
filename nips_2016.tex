@@ -20,7 +20,11 @@
 \usepackage{amsfonts}       % blackboard math symbols
 \usepackage{nicefrac}       % compact symbols for 1/2, etc.
 \usepackage{microtype}      % microtypography
-\usepackage{amsmath}
+\usepackage{amsmath}		% math library
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\graphicspath{{./images/}}
 
 \title{Voxel-wise nonlinear analysis toolbox for neurodegenerative diseases and aging}
 
@@ -134,15 +138,35 @@ For that reason a variance normalized version of the PRSS that takes into accoun
 
 \subsection{Interactive visualization tools}
 
-An interactive visualization tool is included in the toolbox to provide added insight on the results: it allows to load a 3D statistical map — generated with the fit evaluation method of choice — and several fitted models, and then plots the predicted curves of all the models for the voxel selected with the cursor, hence easing the task of inspecting the curves in the uncovered significant regions. An example of the aforementioned tool is found in \autoref{}. 
+An interactive visualization tool is included in the toolbox to provide added insight on the results: it allows to load a 3D statistical map — generated with the fit evaluation method of choice — and several fitted models, and then plots the predicted curves of all the models for the voxel selected with the cursor, hence easing the task of inspecting the curves in the uncovered significant regions. An example of the aforementioned tool is found in \autoref{fig:vnprss_high_fitscore_curve_apoe}. 
 
 \section{Implementation details}
 
 The whole toolbox has been implemented in Python. Numpy and scipy have been used for the numerical and scientific computing, NiBabel for handling the morphometric data in NIfTI format, scikit-learn for the machine learning algorithms and matplotlib and seaborn for plotting and for the visualization features.
 
+\section{Dataset}
+
 \section{Experiments}
 
-\subsection{Dataset}
+\begin{figure}[!htp]
+	\centering
+	\begin{minipage}{.45\textwidth}
+		\centering
+		\captionsetup{justification=centering,margin=0.5cm}
+		\includegraphics[width=.95\linewidth]{gvis_best_gsvr_vs_pglm_vs_psvr.png}
+		\captionof{figure}{\textit{BEST} model of polynomial GLM vs polynomial SVR vs Gaussian SVR with the corresponding curves for a voxel in which the best fitting score belongs to the Gaussian SVR model.}
+		\label{fig:gsvr_best}
+	\end{minipage}
+	\begin{minipage}{.45\textwidth}
+		\captionsetup{justification=centering,margin=0.5cm}
+		\centering
+		\includegraphics[width=.95\linewidth]{vnprss_high_fitscore_curve.png}
+		\captionof{figure}{VN-PRSS statistical map for the polynomial model in \textit{Aging atrophy with regards to the APOE4 genotype} problem and the associated curve in a voxel with a high fit score.}
+		\label{fig:vnprss_high_fitscore_curve_apoe}
+	\end{minipage}%
+\end{figure}
+
+Sample figures.
 
 \section{Conclusions}
 
