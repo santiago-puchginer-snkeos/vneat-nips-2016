@@ -40,10 +40,6 @@
 
 \author{
   Authors\\
-  Signal Theory and Communications Department\\
-  Universitat Politècnica de Catalunya, BarcelonaTech\\
-  Barcelona, Spain \\
-  \texttt{email}\\
   %% \AND
   %% Coauthor \\
   %% Affiliation \\
@@ -77,69 +73,65 @@
 
 \section{Introduction}
 
+Nowadays there is a vast armory of neuroimaging analysis tools available for the neuroscientific community whose ultimate goal is to conduct spatially extended statistical tests to identify regionally significant effects in the images without any a priori hypothesis on the location or extent of these effects. Some of these tools perform these tests at the voxel level\footnote{\url{http://www.fil.ion.ucl.ac.uk/spm/}}, whereas some others provide with specific environments for analyzing the images, based on 3D meshes\footnote{\url{http://freesurfer.net/}} or boundaries\footnote{\url{http://idealab.ucdavis.edu/software/bbsi.php}}. 
+
+Irrespective of these differences, the vast majority of neuroimaging tools are based on different implementations of the General Linear Model (GLM). Even though the GLM is flexible enough for conducting most of the typical statistical analysis, its flexibility for modeling nonlinear effects is rather limited. To this regard, it is important to note that some relevant confounders in most analysis, such as the impact of age on regional brain volumes, have been described to be better described by nonlinear processes (\cite{nonlinear_subcortical}, \cite{nonlinear_cortical}).
+
+In this event, the most widely used alternative is to refrain from performing a voxelwise analysis and quantify brain volumes based on regions of interest (ROIs) and then perform the nonlinear fitting of these trajectories by external software. This alternative has the obvious disadvantage that made voxel-wise analysis so popular on the first place: the need to identify a set of ROIs a priori. 
+
+In this work, we describe a new analysis toolbox that allows for the modeling of nonlinear effects at the voxel level that overcomes these limitations and illustrate its features using a relevant example in which distinct nonlinear trajectories were found as a function of a cerebrospinal fluid (CSF) related biomarker for participants in all stages of Alzheimer's disease.
+
+
 \section{The toolbox}
 \label{toolbox}
 
-The toolbox comprises an independent \textit{fitting library}, made up of different \textit{model fitting} and \textit{fit evaluation} methods, a \textit{processing} module that interacts with the aforementioned \textit{fitting library} providing the formatted data obtained from the \textit{file system}, several \textit{visualization} tools and a \textit{CLI interface} that allows the interaction between the user and the \textit{processing} module, supported by a \textit{configuration file}. 
+The toolbox comprises an independent \textit{fitting library}, made up of different \textit{model fitting} and \textit{fit evaluation} methods, a \textit{processing} module that interacts with the fitting library providing the formatted data obtained from the \textit{file system}, several \textit{visualization} tools and a \textit{command line interface} that allows the interaction between the user and the processing module, supported by a \textit{configuration file}. 
 
 \subsection{Model fitting techniques}
 
-A model fitting consists on finding a parametric or a nonparametric function of some explanatory variables (\textbf{predictors}) and possibly some confound variables (\textbf{correctors}) that best fits the observations of the target variable in terms of a given quality metric or, conversely, that minimizes the loss between the prediction of the model and the actual observations.
-\begin{itemize}
-\item \textbf{General Linear Model (GLM)} 
+Model fitting consists in finding a parametric or a nonparametric function of some explanatory variables (\textbf{predictors}) and possibly some confound variables (\textbf{correctors}) that best fits the observations of the target variable in terms of a given quality metric or, conversely, that minimizes the loss between the prediction of the model and the actual observations. Implemented models are:
 
-The General Linear model is a generalization of multiple linear regression to the case of more than one dependent variable. 
-A possible approach to model nonliniearities with this model is a polynomial basis expansion of degree $d$, that is, the input space $\mathfrak{X}$ is mapped into another feature space $\mathfrak{F}$ that also includes the polynomial terms of the variables: ($\Phi : \mathfrak{X} \rightarrow \mathfrak{F}$).
+\textbf{General Linear Model (GLM)} 
 
-\item \textbf{Generalized Additive Model (GAM)} 
+The General Linear model is a generalization of multiple linear regression to the case of more than one dependent variable. Nonlinear relationships can be modeled with GLM using a polynomial basis expansion of degree $d$, that maps the input space into another feature space that includes the polynomial terms of the variables.
 
-A Generalized Additive Model is a Generalized Linear Model in which the observations of the target variable depend linearly on unknown smooth functions of some predictor variables: $ f(X) = \alpha + \sum_{i=1}^{k} f_i(X_i)$. Here $f_1, f_2, ..., f_k$ are nonparametric smooth functions that are simultaneously estimated using scatterplot smoothers by means of the \textbf{backfitting algorithm}. Several fitting methods can be accomodated in this framework by using different smoother operators, such as cubic splines, polynomial or Gaussian smoothers. 
+\textbf{Generalized Additive Model (GAM)} 
 
-\item \textbf{Support Vector Regression (SVR)} 
+A Generalized Additive Model (\cite{gam_Hastie_1990}) is a Generalized Linear Model in which the observations of the target variable depend linearly on unknown smooth functions of some predictor variables: $ f(X) = \alpha + \sum_{i=1}^{k} f_i(X_i)$. Here $f_1, f_2, ..., f_k$ are nonparametric smooth functions that are simultaneously estimated using scatterplot smoothers by means of the backfitting algorithm (REF). Several fitting methods can be accomodated in this framework by using different smoother operators, such as cubic splines, polynomial or Gaussian smoothers. 
 
-The regression counterpart of the well-known Support Vector Machines, Support Vector Regression, is based on the following idea: the goal is to find a function that has at most $\epsilon$ deviation from the observations and, at the same time, is as flat as possible. However, the $\epsilon$ deviation contraint is not feasible sometimes, and a hyperparameter that controls the degree up to which deviations larger than $\epsilon$ are tolerated is introduced, $C$. 
-In the context of SVR nonlinearities are introduced with the "kernel trick", that is, a kernel function $ k(x_i, x_j) = \langle \Phi(x_i), \Phi(x_j) \rangle $ is introduced that implicitly maps the inputs from their original space into another high-dimensional space without requiring to know the explicit mapping $ \Phi(\cdot) $. 
-The kernel function used in this toolbox is the Radial Basis Function or Gaussian kernel, which is defined as $ k(x_i, x_j) = exp(-\gamma \|x_i - x_j\|^2)$.
-\end{itemize}
+\textbf{Support Vector Regression (SVR)} 
 
-\subsection{Hyperparameters search algorithm}
+In Support Vector Regression the goal is to find a function that has at most $\epsilon$ deviation from the observations and, at the same time, is as flat as possible. However, the $\epsilon$ deviation contraint is not feasible sometimes, and a hyperparameter $C$ that controls the degree up to which deviations larger than $\epsilon$ are tolerated is introduced. 
+In the context of SVR nonlinearities are introduced with the "kernel trick", that is, a kernel function $ k(x_i, x_j) = \langle \Phi(x_i), \Phi(x_j) \rangle $ that implicitly maps the inputs from their original space into another high-dimensional space. The kernel function used in this toolbox is the Radial Basis Function (RBF) kernel, which is defined as $ k(x_i, x_j) = exp(-\gamma \|x_i - x_j\|^2)$.
 
-Support Vector Regression methods rely on several hyperparameters, namely $\epsilon$ and $C$ in general and also $\gamma$ when using a RBF kernel function. To address the search of these hyperparameters an automatic method based on grid search is included in this toolbox, which comprises the following steps: 1) sample the hyperparameters space in a grid using one of the several sampling methods provided in the toolbox; 2) fit a subset of the data with the combination of hyperparameters of each sample in the grid; 3) select the combination that minimizes the error function of choice. 
-
-The lack of validation data and the nature of morphometric data, which is vastly dominated by voxels with 0-valued observations, limits the ability to find a subset of the data that is valid to find the optimal hyperparameters without incurrying in overfitting or underfitting. For that reason the following approach is taken: a subset of $m$ voxels is selected in each of the $N$ iterations of the algorithm, the $m$ selected voxels must contain observations with a minimum variance of $Var_{min}$, and the error computed for each voxel is weighted by the inverse of the variance of its observations. 
-
+SVR methods rely on several hyperparameters, namely $\epsilon$ and $C$ in general and also $\gamma$ when using a RBF kernel function. To address the search of these hyperparameters an automatic method based on grid search is included in this toolbox, which comprises the following steps: 1) sample the hyperparameters space in a grid using one of the several sampling methods provided in the toolbox; 2) fit a subset of the data with the combination of hyperparameters of each sample in the grid; 3) select the combination that minimizes the error function of choice. 
 
 \subsection{Fit evaluation methods}
-\begin{itemize}
 	
-\item \textbf{MSE}, \boldmath{$R^2$}
+\textbf{MSE}, \textbf{Coefficient of determination} ($\mathbf{R^2}$)
 
-Well known metrics that evaluate the predictive power of the model but don't penalize its complexity.
+These metrics evaluate the predictive power of the model but don't penalize its complexity.
 
-\item \textbf{Akaike Information Criterion (AIC)}
+\textbf{Akaike Information Criterion (AIC)}
 
-Criterion based on information theory widely used for model comparison and selection. Unlike the previous ones, it does penalize the complexity of the model by requiring its number of parameters $k$.
+Criterion based on information theory widely used for model comparison and selection. Unlike the previous ones, it penalizes the complexity of the model by requiring its number of parameters.
 
-\item \textbf{F-test} 
+\textbf{F-test} 
 
 The F-test evaluates whether the variance of the full model (correctors and predictors) is significantly lower — from a statistical point of view — than the variance of the restricted model (only correctors), that is, the inclusion of the predictors contributes to the explanation of the observations. 
-This statistical test requires the degrees of freedom of both models, which are trivial to compute in GLM, but they aren't in GAM or SVR. The equivalent degrees of freedom for Support Vector Regression were introduced in the toolbox as defined in \ref{}.
+This statistical test requires the degrees of freedom of both models, which are trivial to compute in GLM, but they aren't in GAM or SVR. The equivalent degrees of freedom for Support Vector Regression were introduced in the toolbox as defined in \cite{equivalent_df_SVR}.
 
-\item \textbf{PRSS\footnote{Penalized Residual Sum of Squares}, Variance-Normalized PRSS} 
+\textbf{Penalized Residual Sum of Squares (PRSS), Variance-Normalized PRSS} 
 
-Penalized Residuals Sum of Squares is introduced in the toolbox in order to provide a fit evaluation metric that penalizes the complexity of the predicted curve without requiring the degrees of freedom. However, PRSS is not suitable enough in the context of morphometric analysis, as it always provides better scores for target variables with low-variance and flat trends than for target variables with high-variance and nonflat trends, and that poses a problem as most of the voxels in the brain are 0-valued. 
-
+Penalized Residuals Sum of Squares is introduced in the toolbox in order to provide a fit evaluation metric that penalizes the complexity of the predicted curve without requiring the degrees of freedom. However, PRSS is not suitable enough in the context of morphometric analysis, as it always provides better scores for target variables with low-variance and flat trends than for target variables with high-variance and nonflat trends, and that poses a problem as most of the voxels in the brain are 0-valued.
 For that reason a variance normalized version of the PRSS that weights the score with the inverse of the variance of the predicted curve was introduced, the Variance Normalized Penalized Residuals Sum of Squares.
 
-\end{itemize}
-
 \subsection{Interactive visualization tool}
-
 An interactive visualization tool is included in the toolbox to provide added insight on the results: it allows to load a 3D statistical map — generated with the fit evaluation method of choice — and several fitted models, and then plots the predicted curves of all the models for the voxel selected with the cursor, hence easing the task of inspecting the curves in the significant regions. An example of the aforementioned tool is found in \autoref{fig:vnprss_high_fitscore_curve_apoe}. 
 
 \section{Implementation details}
 
-The whole toolbox has been implemented in Python. Numpy and scipy have been used for the numerical and scientific computing, NiBabel for handling the morphometric data in NIfTI format, scikit-learn for the machine learning algorithms and matplotlib and seaborn for plotting and for the visualization features.
+The whole toolbox has been implemented in Python. Numpy and scipy have been used for the numerical and scientific computing, NiBabel for handling the morphometric data in NIfTI format, scikit-learn (\cite{scikit-learn}) for the machine learning algorithms and matplotlib and seaborn for plotting and for the visualization features.
 
 \section{Dataset}
 
@@ -147,19 +139,20 @@ The whole toolbox has been implemented in Python. Numpy and scipy have been used
 
 \begin{figure}[!htp]
 	\centering
-	\begin{minipage}{.45\textwidth}
-		\centering
-		\captionsetup{justification=centering,margin=0.5cm}
-		\includegraphics[width=.95\linewidth]{gvis_best_gsvr_vs_pglm_vs_psvr.png}
-		\captionof{figure}{\textit{BEST} model of polynomial GLM vs polynomial SVR vs Gaussian SVR with the corresponding curves for a voxel in which the best fitting score belongs to the Gaussian SVR model.}
-		\label{fig:gsvr_best}
-	\end{minipage}
-	\begin{minipage}{.45\textwidth}
+	\begin{minipage}{.6\textwidth}
 		\captionsetup{justification=centering,margin=0.5cm}
 		\centering
-		\includegraphics[width=.95\linewidth]{vnprss_high_fitscore_curve.png}
-		\captionof{figure}{VN-PRSS statistical map for the polynomial model in \textit{Aging atrophy with regards to the APOE4 genotype} problem and the associated curve in a voxel with a high fit score.}
+		\includegraphics[width=.95\linewidth]{psvr_zscores_0_999_lightbox.png}
+		\captionof{figure}{F-test statistical map for the polynomial SVR, with significance level ($\alpha$) filtering	at 0.001, minimum cluster size of 100 voxels and transformed into Z-scores for improved
+		visualization.}
 		\label{fig:vnprss_high_fitscore_curve_apoe}
+	\end{minipage}
+	\begin{minipage}{.35\textwidth}
+		\centering
+		\captionsetup{justification=centering,margin=0.1cm}
+		\includegraphics[width=.95\linewidth]{gvis_best_gsvr_vs_pglm_vs_psvr.png}
+		\captionof{figure}{Comparison of polynomial GLM (black) vs polynomial SVR (orange) vs Gaussian SVR (white) with the corresponding curves for a voxel in which the best fitting score belongs to the Gaussian SVR model.}
+		\label{fig:gsvr_best}
 	\end{minipage}%
 \end{figure}
 
@@ -167,15 +160,17 @@ Sample figures.
 
 \section{Conclusions}
 
-\subsubsection*{Acknowledgments}
+As compared to ROI-based statistical analysis, the voxelwise approach has the key advantage to allow for spatially unbiased analysis of brain images. This strategy has become predominant in the last decades and typically relies on particular implementations of the GLM. However, this approach presents with severe limitations when it comes to the modeling of non-linear effects, hence current neuroimaging analysis tools are sub-optimal for the identification of such nonlinear patterns. As a consequence, the capacity of the neuroimaging community to detect spatially distributed critical points associated to brain maturation or pathology is as well limited. 
 
+In addition, the proliferation of neuroimaging repositories with longitudinal data provides with a unique opportunity for imaging researchers to analyze reference datasets with different tools, thus enabling the comparison and validation of analytical tools while gaining more insight on the data under analysis. Examples of these repositories are the OASIS, ADNI, and AIBL databases. In the case of ADNI, subjects have undergone several imaging assessments over time and, as for some imaging biomarkers, it is obvious that their temporal trajectories departs from linearity (\cite{insel_nonlinear}). Therefore, in the analysis of such longitudinal datasets, the availability of non-linear modeling tools is likewise critical to fully understand the interrelationships between the trajectories of different biomarkers that may be crucial for understanding downstream pathological effects.
 
-\section*{References}
 \small
 
-[1] Alexander, J.A.\ \& Mozer, M.C.\ (1995) Template-based algorithms
-for connectionist rule extraction. In G.\ Tesauro, D.S.\ Touretzky and
-T.K.\ Leen (eds.), {\it Advances in Neural Information Processing
-  Systems 7}, pp.\ 609--616. Cambridge, MA: MIT Press.
+% References without cites
+\nocite{statistics_Hastie_2009}
+\nocite{tutorial_SVR}
+
+\bibliographystyle{unsrt}
+\bibliography{bibliography}
 
 \end{document}

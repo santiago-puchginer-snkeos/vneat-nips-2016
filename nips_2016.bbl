@@ -1,0 +1,54 @@
+\begin{thebibliography}{1}
+
+\bibitem{nonlinear_subcortical}
+A.~M. Fjell, L.~T. Westlye, H.~Grydeland, I.~Amlien, T.~Espeseth, I.~Reinvang,
+  N.~Raz, D.~Holland, A.~M. Dale, and K.~B. Walhovd.
+\newblock {{C}ritical ages in the life course of the adult brain: nonlinear
+  subcortical aging}.
+\newblock {\em Neurobiol. Aging}, 34(10):2239--2247, Oct 2013.
+
+\bibitem{nonlinear_cortical}
+A.~M. Fjell, L.~T. Westlye, H.~Grydeland, I.~Amlien, T.~Espeseth, I.~Reinvang,
+  N.~Raz, A.~M. Dale, and K.~B. Walhovd.
+\newblock {{A}ccelerating cortical thinning: unique to dementia or universal in
+  aging?}
+\newblock {\em Cereb. Cortex}, 24(4):919--934, Apr 2014.
+
+\bibitem{gam_Hastie_1990}
+Trevor~J Hastie and Robert~J Tibshirani.
+\newblock {\em Generalized Additive Models}, volume~43 of {\em Monographs on
+  Statistics and Applied Probability}.
+\newblock Chapman \& Hall/CRC, June 1990.
+
+\bibitem{equivalent_df_SVR}
+Francesco Dinuzzo, Marta Neve, Giuseppe~De Nicolao, and Ugo~Pietro Gianazza.
+\newblock On the representer theorem and equivalent degrees of freedom of svr.
+\newblock {\em Journal of Machine Learning Research}, 8:2467--2495, December
+  2007.
+
+\bibitem{scikit-learn}
+F.~Pedregosa, G.~Varoquaux, A.~Gramfort, V.~Michel, B.~Thirion, O.~Grisel,
+  M.~Blondel, P.~Prettenhofer, R.~Weiss, V.~Dubourg, J.~Vanderplas, A.~Passos,
+  D.~Cournapeau, M.~Brucher, M.~Perrot, and E.~Duchesnay.
+\newblock Scikit-learn: Machine learning in {P}ython.
+\newblock {\em Journal of Machine Learning Research}, 12:2825--2830, 2011.
+
+\bibitem{insel_nonlinear}
+P.~S. Insel, N.~Mattsson, M.~C. Donohue, R.~S. Mackin, P.~S. Aisen, C.~R. Jack,
+  L.~M. Shaw, J.~Q. Trojanowski, and M.~W. Weiner.
+\newblock {{T}he transitional association between $\beta$-amyloid pathology and
+  regional brain atrophy}.
+\newblock {\em Alzheimers Dement}, 11(10):1171--1179, Oct 2015.
+
+\bibitem{statistics_Hastie_2009}
+Trevor Hastie, Robert Tibshirani, and Jerome Friedman.
+\newblock {\em The Elements of Statistical Learning. Data Mining, Inference,
+  and Prediction}.
+\newblock Springer, second edition edition, February 2009.
+
+\bibitem{tutorial_SVR}
+Alex~J. Smola and Bernhard Sch\"{o}lkopf.
+\newblock A tutorial on support vector regression.
+\newblock {\em Statistics and Computing}, 14(3):199--222, August 2004.
+
+\end{thebibliography}

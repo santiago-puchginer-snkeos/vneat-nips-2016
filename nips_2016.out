@@ -1,10 +1,9 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
 \BOOKMARK [1][-]{section.2}{The toolbox}{}% 2
 \BOOKMARK [2][-]{subsection.2.1}{Model fitting techniques}{section.2}% 3
-\BOOKMARK [2][-]{subsection.2.2}{Hyperparameters search algorithm}{section.2}% 4
-\BOOKMARK [2][-]{subsection.2.3}{Fit evaluation methods}{section.2}% 5
-\BOOKMARK [2][-]{subsection.2.4}{Interactive visualization tool}{section.2}% 6
-\BOOKMARK [1][-]{section.3}{Implementation details}{}% 7
-\BOOKMARK [1][-]{section.4}{Dataset}{}% 8
-\BOOKMARK [1][-]{section.5}{Experiments}{}% 9
-\BOOKMARK [1][-]{section.6}{Conclusions}{}% 10
+\BOOKMARK [2][-]{subsection.2.2}{Fit evaluation methods}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Interactive visualization tool}{section.2}% 5
+\BOOKMARK [1][-]{section.3}{Implementation details}{}% 6
+\BOOKMARK [1][-]{section.4}{Dataset}{}% 7
+\BOOKMARK [1][-]{section.5}{Experiments}{}% 8
+\BOOKMARK [1][-]{section.6}{Conclusions}{}% 9
