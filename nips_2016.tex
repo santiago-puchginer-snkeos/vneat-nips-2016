@@ -63,19 +63,14 @@
 \maketitle
 
 \begin{abstract}
-  The abstract paragraph should be indented \nicefrac{1}{2}~inch
-  (3~picas) on both the left- and right-hand margins. Use 10~point
-  type, with a vertical spacing (leading) of 11~points.  The word
-  \textbf{Abstract} must be centered, bold, and in point size 12. Two
-  line spaces precede the abstract. The abstract must be limited to
-  one paragraph.
+This paper describes a new neuroimaging analysis toolbox that allows for the modeling of nonlinear effects at the voxel level, overcoming limitations of methods based on linear models like the GLM. We illustrate its features using a relevant example in which distinct nonlinear trajectories of Alzheimer's disease related brain atrophy patterns were found across the full biological spectrum of the disease.
 \end{abstract}
 
 \section{Introduction}
 
 Nowadays there is a vast armory of neuroimaging analysis tools available for the neuroscientific community whose ultimate goal is to conduct spatially extended statistical tests to identify regionally significant effects in the images without any a priori hypothesis on the location or extent of these effects. Some of these tools perform these tests at the voxel level\footnote{\url{http://www.fil.ion.ucl.ac.uk/spm/}}, whereas some others provide with specific environments for analyzing the images, based on 3D meshes\footnote{\url{http://freesurfer.net/}} or boundaries\footnote{\url{http://idealab.ucdavis.edu/software/bbsi.php}}. 
 
-Irrespective of these differences, the vast majority of neuroimaging tools are based on different implementations of the General Linear Model (GLM). Even though the GLM is flexible enough for conducting most of the typical statistical analysis, its flexibility for modeling nonlinear effects is rather limited. To this regard, it is important to note that some relevant confounders in most analysis, such as the impact of age on regional brain volumes, have been found to be better described by nonlinear processes (\cite{nonlinear_subcortical}, \cite{nonlinear_cortical}).
+Irrespective of these differences, the vast majority of neuroimaging tools are based on different implementations of the General Linear Model (GLM). Even though the GLM is flexible enough for conducting most of the typical statistical analysis, its flexibility for modeling nonlinear effects is rather limited. To this regard, it is important to note that some relevant confounders in most analysis, such as the impact of age on regional brain volumes, have been found to be better described by nonlinear processes \cite{nonlinear_subcortical,nonlinear_cortical}.
 
 In this event, the most widely used alternative is to refrain from performing a voxel-wise analysis and quantify brain volumes based on regions of interest (ROIs) and then perform the nonlinear fitting of these trajectories by external software. This alternative has the obvious disadvantage that made voxel-wise analysis so popular on the first place: the need to identify a set of ROIs a priori. 
 
@@ -85,19 +80,19 @@ In this work, we describe a new analysis toolbox that allows for the modeling of
 \section{The toolbox}
 \label{toolbox}
 
-The toolbox comprises an independent \textit{fitting library}, made up of different \textit{model fitting} and \textit{fit evaluation} methods, a \textit{processing} module that interacts with the fitting library providing the formatted data obtained from the \textit{file system}, several \textit{visualization} tools and a \textit{command line interface} that allows the interaction between the user and the processing module, supported by a \textit{configuration file}. 
+The toolbox comprises an independent fitting library, made up of different \textit{model fitting} and \textit{fit evaluation} methods, a processing module that interacts with the fitting library providing the formatted data obtained from the file system, several \textit{visualization} tools and a command line interface that allows the interaction between the user and the processing module, supported by a configuration file. 
 
 \subsection{Model fitting techniques}
 
-Model fitting consists in finding a parametric or a nonparametric function of some explanatory variables (\textbf{predictors}) and possibly some confound variables (\textbf{correctors}) that best fits the observations of the target variable in terms of a given quality metric or, conversely, that minimizes the loss between the prediction of the model and the actual observations. Implemented models are:
+Model fitting consists in finding a parametric or a nonparametric function of some explanatory variables (predictors) and possibly some confound variables (correctors) that best fits the observations of the target variable in terms of a given quality metric or, conversely, that minimizes the loss between the prediction of the model and the actual observations. Implemented models are:
 
 \textbf{General Linear Model (GLM)} 
 
-The General Linear model is a generalization of multiple linear regression to the case of more than one dependent variable. Nonlinear relationships can be modeled with GLM using a polynomial basis expansion of degree $d$, that maps the input space into another feature space that includes the polynomial terms of the variables.
+The General Linear model is a generalization of multiple linear regression to the case of more than one dependent variable. Nonlinear relationships can be modeled within the GLM framework using a polynomial basis expansion, mapping the input space into a feature space which includes the polynomial terms of the variables.
 
 \textbf{Generalized Additive Model (GAM)} 
 
-A Generalized Additive Model (\cite{gam_Hastie_1990}) is a Generalized Linear Model in which the observations of the target variable depend linearly on unknown smooth functions of some predictor variables: $ f(X) = \alpha + \sum_{i=1}^{k} f_i(X_i)$. Here $f_1, f_2, ..., f_k$ are nonparametric smooth functions that are simultaneously estimated using scatterplot smoothers by means of the backfitting algorithm (REF). Several fitting methods can be accomodated in this framework by using different smoother operators, such as cubic splines, polynomial or Gaussian smoothers. 
+A Generalized Additive Model \cite{gam_Hastie_1990} is a Generalized Linear Model in which the observations of the target variable depend linearly on unknown smooth functions of some predictor variables: $ f(X) = \alpha + \sum_{i=1}^{k} f_i(X_i)$. Here $f_1, f_2, ..., f_k$ are nonparametric smooth functions that are simultaneously estimated using scatterplot smoothers by means of the backfitting algorithm \textbf{REF??}. Several fitting methods can be accomodated in this framework by using different smoother operators, such as cubic splines, polynomial or Gaussian smoothers. \textbf{estan todos implementados?} 
 
 \textbf{Support Vector Regression (SVR)} 
 
@@ -110,16 +105,16 @@ SVR methods rely on several hyperparameters, namely $\epsilon$ and $C$ in genera
 	
 \textbf{MSE}, \textbf{Coefficient of determination} ($\mathbf{R^2}$)
 
-These metrics evaluate the predictive power of the model but don't penalize its complexity.
+These two metrics evaluate the predictive power of a model without penalizing its complexity.
 
 \textbf{Akaike Information Criterion (AIC)}
 
-Criterion based on information theory widely used for model comparison and selection. Unlike the previous ones, it penalizes the complexity of the model by requiring its number of parameters.
+The AIC is a criterion based on information theory widely used for model comparison and selection. Unlike the previous metrics, it penalizes the complexity of the model by requiring its number of parameters.
 
 \textbf{F-test} 
 
 The F-test evaluates whether the variance of the full model (correctors and predictors) is significantly lower — from a statistical point of view — than the variance of the restricted model (only correctors), that is, the inclusion of the predictors contributes to the explanation of the observations. 
-This statistical test requires the degrees of freedom of both models, which are trivial to compute in GLM, but they aren't in GAM or SVR. The equivalent degrees of freedom for Support Vector Regression were introduced in the toolbox as defined in \cite{equivalent_df_SVR}.
+This statistical test requires the degrees of freedom of both models, which are trivial to compute in GLM, but are not in GAM or SVR. The equivalent degrees of freedom for Support Vector Regression were introduced in the toolbox as defined in \cite{equivalent_df_SVR}.
 
 \textbf{Penalized Residual Sum of Squares (PRSS), Variance-Normalized PRSS} 
 
@@ -127,18 +122,20 @@ Penalized Residuals Sum of Squares is introduced in the toolbox in order to prov
 For that reason a variance normalized version of the PRSS that weights the score with the inverse of the variance of the predicted curve was introduced, the Variance Normalized Penalized Residuals Sum of Squares.
 
 \subsection{Interactive visualization tool}
-An interactive visualization tool is included in the toolbox to provide added insight on the results: it allows to load a 3D statistical map — generated with the fit evaluation method of choice — and several fitted models, and then plots the predicted curves of all the models for the voxel selected with the cursor, hence easing the task of inspecting the curves in the significant regions. An example of the aforementioned tool is found in \autoref{fig:vnprss_high_fitscore_curve_apoe}. 
+An interactive visualization tool is included in the toolbox to provide added insight on the results: it allows to load a 3D statistical map — generated with the fit evaluation method of choice — and several fitted models, and then plots the predicted curves of all the models for the voxel selected with the cursor, hence easing the task of inspecting the curves in the significant regions. An example of the aforementioned tool is found in \autoref{fig:gsvr_best}. 
 
 \section{Implementation details}
 
 The whole toolbox has been implemented in Python. Numpy and scipy have been used for the numerical and scientific computing, NiBabel to handle the morphometric data in NIfTI format, scikit-learn (\cite{scikit-learn}) for the machine learning algorithms and matplotlib and seaborn for plotting and the visualization features.
 
-\section{Dataset}
 
+\section{Use case: Alzheimer's disease continuum}
+
+\subsection{Dataset}
 129 participants (62 controls, 18 preclinical AD, 28 mild cognitive impairment (MCI) due to AD and 21 with diagnosed AD) underwent MRI scanning and CSF analysis. ADCSF-index was computed for all subjects applying the formula in \cite{ADCSF_Molinuevo_2013}, and the T1-weighted brain scans of all participants were pre-processed using Voxel Based Morphometry (VBM) as implemented in SPM8\footnote{\url{http://www.fil.ion.ucl.ac.uk/spm}}. Further details of the 
 dataset and the image pre-processing pipeline can be found in \cite{Nonlinear_Gispert_2015}.
 
-\section{Experiments}
+\subsection{Experiments}
 
 \begin{figure}[!htp]
 	\centering

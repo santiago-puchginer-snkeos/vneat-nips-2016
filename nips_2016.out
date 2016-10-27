@@ -4,6 +4,7 @@
 \BOOKMARK [2][-]{subsection.2.2}{Fit evaluation methods}{section.2}% 4
 \BOOKMARK [2][-]{subsection.2.3}{Interactive visualization tool}{section.2}% 5
 \BOOKMARK [1][-]{section.3}{Implementation details}{}% 6
-\BOOKMARK [1][-]{section.4}{Dataset}{}% 7
-\BOOKMARK [1][-]{section.5}{Experiments}{}% 8
-\BOOKMARK [1][-]{section.6}{Conclusions}{}% 9
+\BOOKMARK [1][-]{section.4}{Use case: Alzheimer's disease continuum}{}% 7
+\BOOKMARK [2][-]{subsection.4.1}{Dataset}{section.4}% 8
+\BOOKMARK [2][-]{subsection.4.2}{Experiments}{section.4}% 9
+\BOOKMARK [1][-]{section.5}{Conclusions}{}% 10
