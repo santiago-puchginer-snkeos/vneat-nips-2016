@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{nonlinear_subcortical}
 A.~M. Fjell, L.~T. Westlye, H.~Grydeland, I.~Amlien, T.~Espeseth, I.~Reinvang,
@@ -32,6 +32,22 @@ F.~Pedregosa, G.~Varoquaux, A.~Gramfort, V.~Michel, B.~Thirion, O.~Grisel,
   D.~Cournapeau, M.~Brucher, M.~Perrot, and E.~Duchesnay.
 \newblock Scikit-learn: Machine learning in {P}ython.
 \newblock {\em Journal of Machine Learning Research}, 12:2825--2830, 2011.
+
+\bibitem{ADCSF_Molinuevo_2013}
+Jose~L Molinuevo, Juan~Domingo Gispert, Bruno Dubois, Michael Heneka, Alberto
+  Lleo, Sebastiaan Engelborghs, Jes{\'u}s Pujol, Leonardo~Cruz de~Souza, Daniel
+  Alcolea, Frank Jessen, Marie Sarazin, Foudil Lamari, Mircea Balasa, Anna
+  Antonell, and Lorena Rami.
+\newblock The ad-csf-index discriminates alzheimer’s disease patients from
+  healthy controls: a validation study.
+\newblock {\em Journal of Alzheimer's Disease}, 36(1):67--77, June 2013.
+
+\bibitem{Nonlinear_Gispert_2015}
+Juan~Domingo Gispert, Lorena Rami, G~S{\'a}nchez-Benavides, C~Falcon, Alan
+  Tucholka, S~Rojas, and Jose~L Molinuevo.
+\newblock Nonlinear cerebral atrophy patterns across the alzheimer's disease
+  continuum: impact of apoe4 genotype.
+\newblock {\em Neurobiology of Aging}, 36(10):2687--2701, October 2015.
 
 \bibitem{insel_nonlinear}
 P.~S. Insel, N.~Mattsson, M.~C. Donohue, R.~S. Mackin, P.~S. Aisen, C.~R. Jack,

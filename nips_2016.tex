@@ -75,11 +75,11 @@
 
 Nowadays there is a vast armory of neuroimaging analysis tools available for the neuroscientific community whose ultimate goal is to conduct spatially extended statistical tests to identify regionally significant effects in the images without any a priori hypothesis on the location or extent of these effects. Some of these tools perform these tests at the voxel level\footnote{\url{http://www.fil.ion.ucl.ac.uk/spm/}}, whereas some others provide with specific environments for analyzing the images, based on 3D meshes\footnote{\url{http://freesurfer.net/}} or boundaries\footnote{\url{http://idealab.ucdavis.edu/software/bbsi.php}}. 
 
-Irrespective of these differences, the vast majority of neuroimaging tools are based on different implementations of the General Linear Model (GLM). Even though the GLM is flexible enough for conducting most of the typical statistical analysis, its flexibility for modeling nonlinear effects is rather limited. To this regard, it is important to note that some relevant confounders in most analysis, such as the impact of age on regional brain volumes, have been described to be better described by nonlinear processes (\cite{nonlinear_subcortical}, \cite{nonlinear_cortical}).
+Irrespective of these differences, the vast majority of neuroimaging tools are based on different implementations of the General Linear Model (GLM). Even though the GLM is flexible enough for conducting most of the typical statistical analysis, its flexibility for modeling nonlinear effects is rather limited. To this regard, it is important to note that some relevant confounders in most analysis, such as the impact of age on regional brain volumes, have been found to be better described by nonlinear processes (\cite{nonlinear_subcortical}, \cite{nonlinear_cortical}).
 
-In this event, the most widely used alternative is to refrain from performing a voxelwise analysis and quantify brain volumes based on regions of interest (ROIs) and then perform the nonlinear fitting of these trajectories by external software. This alternative has the obvious disadvantage that made voxel-wise analysis so popular on the first place: the need to identify a set of ROIs a priori. 
+In this event, the most widely used alternative is to refrain from performing a voxel-wise analysis and quantify brain volumes based on regions of interest (ROIs) and then perform the nonlinear fitting of these trajectories by external software. This alternative has the obvious disadvantage that made voxel-wise analysis so popular on the first place: the need to identify a set of ROIs a priori. 
 
-In this work, we describe a new analysis toolbox that allows for the modeling of nonlinear effects at the voxel level that overcomes these limitations and illustrate its features using a relevant example in which distinct nonlinear trajectories were found as a function of a cerebrospinal fluid (CSF) related biomarker for participants in all stages of Alzheimer's disease.
+In this work, we describe a new analysis toolbox that allows for the modeling of nonlinear effects at the voxel level that overcomes these limitations and illustrate its features using a relevant example in which distinct nonlinear trajectories are found as a function of a cerebrospinal fluid (CSF) related biomarker for participants in all stages of Alzheimer's disease (AD).
 
 
 \section{The toolbox}
@@ -131,9 +131,12 @@ An interactive visualization tool is included in the toolbox to provide added in
 
 \section{Implementation details}
 
-The whole toolbox has been implemented in Python. Numpy and scipy have been used for the numerical and scientific computing, NiBabel for handling the morphometric data in NIfTI format, scikit-learn (\cite{scikit-learn}) for the machine learning algorithms and matplotlib and seaborn for plotting and for the visualization features.
+The whole toolbox has been implemented in Python. Numpy and scipy have been used for the numerical and scientific computing, NiBabel to handle the morphometric data in NIfTI format, scikit-learn (\cite{scikit-learn}) for the machine learning algorithms and matplotlib and seaborn for plotting and the visualization features.
 
 \section{Dataset}
+
+129 participants (62 controls, 18 preclinical AD, 28 mild cognitive impairment (MCI) due to AD and 21 with diagnosed AD) underwent MRI scanning and CSF analysis. ADCSF-index was computed for all subjects applying the formula in \cite{ADCSF_Molinuevo_2013}, and the T1-weighted brain scans of all participants were pre-processed using Voxel Based Morphometry (VBM) as implemented in SPM8\footnote{\url{http://www.fil.ion.ucl.ac.uk/spm}}. Further details of the 
+dataset and the image pre-processing pipeline can be found in \cite{Nonlinear_Gispert_2015}.
 
 \section{Experiments}
 
@@ -156,11 +159,9 @@ The whole toolbox has been implemented in Python. Numpy and scipy have been used
 	\end{minipage}%
 \end{figure}
 
-Sample figures.
-
 \section{Conclusions}
 
-As compared to ROI-based statistical analysis, the voxelwise approach has the key advantage to allow for spatially unbiased analysis of brain images. This strategy has become predominant in the last decades and typically relies on particular implementations of the GLM. However, this approach presents with severe limitations when it comes to the modeling of non-linear effects, hence current neuroimaging analysis tools are sub-optimal for the identification of such nonlinear patterns. As a consequence, the capacity of the neuroimaging community to detect spatially distributed critical points associated to brain maturation or pathology is as well limited. 
+As compared to ROI-based statistical analysis, the voxelwise approach has the key advantage to allow for spatially unbiased analysis of brain images. This strategy has become predominant in the last decades and typically relies on particular implementations of the GLM. However, this approach presents limitations when it comes to the modeling of non-linear effects, hence current neuroimaging analysis tools are sub-optimal for the identification of such nonlinear patterns. As a consequence, the capacity of the neuroimaging community to detect spatially distributed critical points associated to brain maturation or pathology is as well limited. 
 
 In addition, the proliferation of neuroimaging repositories with longitudinal data provides with a unique opportunity for imaging researchers to analyze reference datasets with different tools, thus enabling the comparison and validation of analytical tools while gaining more insight on the data under analysis. Examples of these repositories are the OASIS, ADNI, and AIBL databases. In the case of ADNI, subjects have undergone several imaging assessments over time and, as for some imaging biomarkers, it is obvious that their temporal trajectories departs from linearity (\cite{insel_nonlinear}). Therefore, in the analysis of such longitudinal datasets, the availability of non-linear modeling tools is likewise critical to fully understand the interrelationships between the trajectories of different biomarkers that may be crucial for understanding downstream pathological effects.
 
