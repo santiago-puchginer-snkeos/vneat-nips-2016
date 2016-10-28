@@ -103,10 +103,11 @@ In Support Vector Regression the goal is to find a function that has at most $\e
 In the context of SVR nonlinearities are introduced with the "kernel trick", that is, a kernel function $ k(x_i, x_j) = \langle \Phi(x_i), \Phi(x_j) \rangle $ that implicitly maps the inputs from their original space into a high-dimensional space. The kernel function used in this toolbox is the Radial Basis Function (RBF) kernel, which is defined as $ k(x_i, x_j) = exp(-\gamma \|x_i - x_j\|^2)$.
 
 SVR methods rely on several hyperparameters, namely $\epsilon$ and $C$ in general and also $\gamma$ when using a RBF kernel function. To address the search of these hyperparameters an automatic method based on grid search is included in this toolbox, which comprises the following steps: 1) sample the hyperparameters space in a grid using one of the several sampling methods provided in the toolbox; 2) fit a subset of the data with the combination of hyperparameters of each sample in the grid; 3) select the combination that minimizes the error function of choice. 
+The lack of validation data and the nature of morphometric data, which is vastly dominated by voxels with 0-valued observations, limits the ability to find a subset of the data that is valid to find the optimal hyperparameters without incurrying in overfitting or underfitting. For that reason the following approach is taken: a subset of $m$ voxels is selected in each of the $N$ iterations of the algorithm, the $m$ selected voxels must contain observations with a minimum variance of $Var_{min}$, and the error computed for each voxel is weighted by the inverse of the variance of its observations. 
 
 \subsection{Fit evaluation methods}
 
-The goodnes of fit of a model can be evaluated using different metrics in order to create 3D stastitical maps as shown in \autoref{fig:ftest_svrpol}
+The goodnes of fit of a model can be evaluated using different metrics in order to create 3D stastitical maps, as shown in \autoref{fig:ftest_svrpol}.
 		
 \textbf{MSE}, \textbf{Coefficient of determination} ($\mathbf{R^2}$)
 
@@ -183,6 +184,7 @@ As future work, we plan to extend the toolbox to deal with longitudinal data. Th
 
 %Examples of these repositories are the OASIS, ADNI, and AIBL databases. In the case of ADNI, subjects have undergone several imaging assessments over time and, as for some imaging biomarkers, it is obvious that their temporal trajectories departs from linearity (\cite{insel_nonlinear}). 
 
+\newpage
 \small
 
 % References without cites
