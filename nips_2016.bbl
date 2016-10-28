@@ -20,6 +20,13 @@ Trevor~J Hastie and Robert~J Tibshirani.
   Statistics and Applied Probability}.
 \newblock Chapman \& Hall/CRC, June 1990.
 
+\bibitem{breiman_backfit}
+L.~Breiman and J.H. Friedman.
+\newblock {{E}stimating optimal transformations for multiple regression and
+  correlations (with discussion)}.
+\newblock {\em Journal of the American Statistical Association},
+  80(391):580--619, 1985.
+
 \bibitem{equivalent_df_SVR}
 Francesco Dinuzzo, Marta Neve, Giuseppe~De Nicolao, and Ugo~Pietro Gianazza.
 \newblock On the representer theorem and equivalent degrees of freedom of svr.
@@ -33,6 +40,13 @@ F.~Pedregosa, G.~Varoquaux, A.~Gramfort, V.~Michel, B.~Thirion, O.~Grisel,
 \newblock Scikit-learn: Machine learning in {P}ython.
 \newblock {\em Journal of Machine Learning Research}, 12:2825--2830, 2011.
 
+\bibitem{Nonlinear_Gispert_2015}
+Juan~Domingo Gispert, Lorena Rami, G~S{\'a}nchez-Benavides, C~Falcon, Alan
+  Tucholka, S~Rojas, and Jose~L Molinuevo.
+\newblock Nonlinear cerebral atrophy patterns across the alzheimer's disease
+  continuum: impact of apoe4 genotype.
+\newblock {\em Neurobiology of Aging}, 36(10):2687--2701, October 2015.
+
 \bibitem{ADCSF_Molinuevo_2013}
 Jose~L Molinuevo, Juan~Domingo Gispert, Bruno Dubois, Michael Heneka, Alberto
   Lleo, Sebastiaan Engelborghs, Jes{\'u}s Pujol, Leonardo~Cruz de~Souza, Daniel
@@ -41,20 +55,6 @@ Jose~L Molinuevo, Juan~Domingo Gispert, Bruno Dubois, Michael Heneka, Alberto
 \newblock The ad-csf-index discriminates alzheimer’s disease patients from
   healthy controls: a validation study.
 \newblock {\em Journal of Alzheimer's Disease}, 36(1):67--77, June 2013.
-
-\bibitem{Nonlinear_Gispert_2015}
-Juan~Domingo Gispert, Lorena Rami, G~S{\'a}nchez-Benavides, C~Falcon, Alan
-  Tucholka, S~Rojas, and Jose~L Molinuevo.
-\newblock Nonlinear cerebral atrophy patterns across the alzheimer's disease
-  continuum: impact of apoe4 genotype.
-\newblock {\em Neurobiology of Aging}, 36(10):2687--2701, October 2015.
-
-\bibitem{insel_nonlinear}
-P.~S. Insel, N.~Mattsson, M.~C. Donohue, R.~S. Mackin, P.~S. Aisen, C.~R. Jack,
-  L.~M. Shaw, J.~Q. Trojanowski, and M.~W. Weiner.
-\newblock {{T}he transitional association between $\beta$-amyloid pathology and
-  regional brain atrophy}.
-\newblock {\em Alzheimers Dement}, 11(10):1171--1179, Oct 2015.
 
 \bibitem{statistics_Hastie_2009}
 Trevor Hastie, Robert Tibshirani, and Jerome Friedman.
