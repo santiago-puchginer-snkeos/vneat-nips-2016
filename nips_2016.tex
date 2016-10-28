@@ -14,7 +14,7 @@
 
 \usepackage[utf8]{inputenc} % allow utf-8 input
 \usepackage[T1]{fontenc}    % use 8-bit T1 fonts
-\usepackage{hyperref}       % hyperlinks
+\usepackage[pdfborder={0 0 0}]{hyperref}       % hyperlinks
 \usepackage{url}            % simple URL typesetting
 \usepackage{booktabs}       % professional-quality tables
 \usepackage{amsfonts}       % blackboard math symbols
@@ -24,6 +24,7 @@
 \usepackage{graphicx}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{authblk}
 \graphicspath{{./images/}}
 
 \title{Voxel-wise nonlinear analysis toolbox for neurodegenerative diseases and aging}
@@ -41,24 +42,18 @@
 % on the second line, try using \AND instead of \And before the third
 % author name.
 
-\author{
-  Authors\\
-  %% \AND
-  %% Coauthor \\
-  %% Affiliation \\
-  %% Address \\
-  %% \texttt{email} \\
-  %% \And
-  %% Coauthor \\
-  %% Affiliation \\
-  %% Address \\
-  %% \texttt{email} \\
-  %% \And
-  %% Coauthor \\
-  %% Affiliation \\
-  %% Address \\
-  %% \texttt{email} \\
-}
+\author[1]{Santi Puch}
+\author[1]{Asier Aduriz}
+\author[1]{Adrià Casamitjana}
+\author[1]{Veronica Vilaplana}
+\author[2]{Raffelle Cacciaglia}
+\author[2]{Stavros Skouras}
+\author[2]{Joan Domingo Gispert} 
+
+\affil[1]{Universitat Politècnica de Catalunya, Barcelona, Spain \\
+\texttt{ \{santiago.puch, asier.aduriz\}@alu-etsetb.upc.edu, \{adria.casamitjana, veronica.vilaplana\}@upc.edu }}
+\affil[2]{Barcelona$\beta$eta Brain Research Center, Barcelona, Spain \\
+\texttt{\{rcacciaglia, sskouras, jdgispert\}@fpmaragall.org}}
 
 \begin{document}
 % \nipsfinalcopy is no longer used
@@ -147,7 +142,7 @@ The dataset comprises 129 participants (62 controls, 18 preclinical AD, 28 mild 
 dataset and the image processing pipeline can be found in \cite{Nonlinear_Gispert_2015}.
 
 
-Images of all the subjects where pooled together regardless of their diagnostic classification. We first applied the same model proposed in \cite{Nonlinear_Gispert_2015}, a polynomic GLM, entering age, sex, and the AD-CSF index, modeling age as a second order polynomial to correct for the effects of aging on gray matter content and the AD-CSF index as a third order polynomial. F-tests were used to analyze the significant effects regarding the three AD-CSF index terms. Results were coherent with the ones found in \cite{Nonlinear_Gispert_2015}.
+Images of all the subjects where pooled together regardless of their diagnostic classification. We first applied the same model proposed in \cite{Nonlinear_Gispert_2015}, a polynomic GLM, entering age, sex, and the AD-CSF index as regressors, modeling age as a second order polynomial to correct for the effects of aging on gray matter content and the AD-CSF index as a third order polynomial. F-tests were used to analyze the significant effects regarding the three AD-CSF index terms. Results were coherent with the ones found in \cite{Nonlinear_Gispert_2015}.
 
 In a second experiment we fitted a polynomial and a Gaussian SVR and computed their F-test statistical maps to compare their behaviour with the polynomial GLM. As an example, the map corresponding to the polynomial SVR is shown in \autoref{fig:ftest_svrpol}.
 
