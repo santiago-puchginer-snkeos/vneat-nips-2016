@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.10.22)  2 NOV 2016 15:53
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.10.22)  29 NOV 2016 10:57
 entering extended mode
 **./nips_2016.tex
 (nips_2016.tex
@@ -881,7 +881,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 196.
 Here is how much of TeX's memory you used:
  10186 strings out of 493334
  153392 string characters out of 3139251
- 279024 words of memory out of 3000000
+ 279022 words of memory out of 3000000
  13358 multiletter control sequences out of 15000+200000
  47904 words of font info for 174 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -899,7 +899,7 @@ e1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public
 cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:
 /Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/Mi
 KTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on nips_2016.pdf (5 pages, 1680616 bytes).
+Output written on nips_2016.pdf (5 pages, 1680614 bytes).
 PDF statistics:
  202 PDF objects out of 1000 (max. 8388607)
  31 named destinations out of 1000 (max. 500000)
