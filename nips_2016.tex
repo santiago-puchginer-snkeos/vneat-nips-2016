@@ -8,7 +8,7 @@
 % \usepackage[nonatbib]{nips_2016}
 
 %\usepackage[final]{nips_2016}
-\usepackage[nonatbib,final]{nips_2016}
+\usepackage[nonatbib, final]{nips_2016}
 
 % to compile a camera-ready version, add the [final] option, e.g.:
 % \usepackage[final]{nips_2016}
@@ -64,7 +64,9 @@
 \maketitle
 
 \begin{abstract}
-This paper describes a new neuroimaging analysis toolbox that allows for the modeling of nonlinear effects at the voxel level, overcoming limitations of methods based on linear models like the GLM. We illustrate its features using a relevant example in which distinct nonlinear trajectories of Alzheimer's disease related brain atrophy patterns were found across the full biological spectrum of the disease.
+This paper describes a new neuroimaging analysis toolbox that allows for the modeling of nonlinear effects at the voxel level, overcoming limitations of methods based on linear models like the GLM. We illustrate its features using a relevant example in which distinct nonlinear trajectories of Alzheimer's disease related brain atrophy patterns were found across the full biological spectrum of the disease. 
+
+The open-source toolbox is available in GitHub: \url{https://github.com/imatge-upc/VNeAT}.
 \end{abstract}
 
 \section{Introduction}
@@ -177,6 +179,8 @@ To compare the models, a best-fit map was obtained, assigning different numerica
 As compared to ROI-based statistical analysis, the voxelwise approach has the key advantage to allow for spatially unbiased analysis of brain images. This strategy has become predominant in the last decades and typically relies on particular implementations of the GLM. However, this approach presents limitations when it comes to the modeling of nonlinear effects, hence current neuroimaging analysis tools are sub-optimal for the identification of such nonlinear patterns. As a consequence, the capacity of neuroscientists to detect spatially distributed critical points associated to brain maturation or pathology is as well limited. In this context we understand that nonlinear modeling tools like the one that we are describing in this paper could be interesting and useful for the neuroimaging community. 
 
 As future work, we plan to extend the toolbox to deal with longitudinal data. The proliferation of neuroimaging repositories with longitudinal data provides with a unique opportunity for imaging researchers to analyze reference datasets with different tools, thus enabling the comparison and validation of analytical tools while gaining more insight on the data under analysis. Therefore, in the analysis of such longitudinal datasets, the availability of nonlinear modeling tools is likewise critical to fully understand the interrelationships between the trajectories of different biomarkers that may be crucial for understanding downstream pathological effects.
+
+The open-source toolbox is available in GitHub: \url{https://github.com/imatge-upc/VNeAT}.
 
 %\textbf{Future work? like adding longitudinal data, plans to make the toolbox available to the community?, also mention group comparison? }
 
